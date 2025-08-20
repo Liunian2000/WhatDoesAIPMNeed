@@ -1,1 +1,986 @@
-<html>Hello World</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI产品经理需要知道的内容</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#7C3AED',
+                        accent: '#10B981',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark antialiased min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fa fa-brain text-primary text-2xl mr-2"></i>
+                    <span class="font-bold text-xl text-primary">AI产品经理知识库</span>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#section-1" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">大语言模型核心原理</a>
+                    <a href="#section-2" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L1阶段: 启航篇</a>
+                    <a href="#section-3" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L2阶段: 攻坚篇</a>
+                    <a href="#section-4" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L3阶段: 跃迁篇</a>
+                    <a href="#section-5" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L4阶段: 精进篇</a>
+                    <a href="#section-6" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">专题策划</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in-down">
+            <div class="container mx-auto px-4 py-2 space-y-1">
+                <a href="#section-1" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">大语言模型核心原理</a>
+                <a href="#section-2" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L1阶段: 启航篇</a>
+                <a href="#section-3" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L2阶段: 攻坚篇</a>
+                <a href="#section-4" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L3阶段: 跃迁篇</a>
+                <a href="#section-5" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L4阶段: 精进篇</a>
+                <a href="#section-6" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">专题策划</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow pt-24 pb-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 英雄区域 -->
+            <section class="py-16 md:py-24 text-center">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-dark mb-6 leading-tight text-shadow animate-fade-in-up">
+                    AI产品经理的<br/><span class="text-primary">知识进阶指南</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 animate-fade-in-up animation-delay-200">
+                    从大语言模型核心原理到实战应用，全面提升你的AI产品管理能力
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up animation-delay-400">
+                    <a href="#section-1" class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex items-center">
+                        <span>开始学习</span>
+                        <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#section-6" class="bg-white border border-primary text-primary hover:bg-primary/5 px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex items-center">
+                        <span>查看专题</span>
+                        <i class="fa fa-book ml-2"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 大语言模型核心原理 -->
+            <section id="section-1" class="py-16 scroll-mt-20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center mb-8 group">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors duration-300">
+                            <i class="fa fa-cogs text-primary text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark group-hover:text-primary transition-colors duration-300">大语言模型核心原理</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- 初识大模型 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-1-1')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-primary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-rocket text-primary mr-3"></i>
+                                    初识大模型
+                                </h3>
+                                <i id="icon-section-1-1" class="fa fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-1-1" class="hidden px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>人工智能演进与大模型兴起: 从AI1.0到AI2.0的变迁</span>
+                                        <ul class="mt-2 ml-4 space-y-2 text-gray-600 pl-4 border-l-2 border-primary/30">
+                                            <li>定义与核心概念</li>
+                                            <li>AI1.0: 感知智能时代</li>
+                                            <li>AI2.0: 认知智能时代</li>
+                                            <li>人工智能的核心能力与应用场景</li>
+                                        </ul>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型度量认知解析</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型与通用人工智能</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 主流大模型与应用产品 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-1-2')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-primary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-th-large text-primary mr-3"></i>
+                                    主流大模型与应用产品
+                                </h3>
+                                <i id="icon-section-1-2" class="fa fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-1-2" class="hidden px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>主流大模型</span>
+                                        <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">DeepSeek</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">Qwen2</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">GLM系列</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">LLama系列</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">GPT系列</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">Claude</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">Gemini</div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>开源大模型 VS 闭源大模型</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型应用产品</span>
+                                        <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">文心一言</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">智谱清言</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">ChatGPT</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 大语言模型基础认知 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-1-3')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-primary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-lightbulb-o text-primary mr-3"></i>
+                                    大语言模型基础认知
+                                </h3>
+                                <i id="icon-section-1-3" class="fa fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-1-3" class="hidden px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>重点行业预测</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型赋能行业通用场景应用分析</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型行业分析</span>
+                                        <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">大模型 &gt; 金融</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">大模型 &gt; 政务</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">大模型 &gt; 医疗</div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-2 rounded-md text-center transition-colors duration-200">大模型 &gt; 法律、游戏、教育、电商等</div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>发展趋势: 更快、更强、更省、更安全</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型的发展趋势与挑战</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 大语言模型核心原理 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-1-4')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-primary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-code text-primary mr-3"></i>
+                                    大语言模型核心原理
+                                </h3>
+                                <i id="icon-section-1-4" class="fa fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-1-4" class="hidden px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大语言模型的机器学习学习有哪些老师</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Transformer架构</span>
+                                        <ul class="mt-2 ml-4 space-y-2 text-gray-600 pl-4 border-l-2 border-primary/30">
+                                            <li>为什么会用Transformer</li>
+                                            <li>什么是Transformer</li>
+                                            <li>RNN的原理与局限性</li>
+                                            <li>Transformer架构分析</li>
+                                        </ul>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型运行基本机制</span>
+                                        <ul class="mt-2 ml-4 space-y-2 text-gray-600 pl-4 border-l-2 border-primary/30">
+                                            <li>大模型如何理解和表示单词</li>
+                                            <li>大模型如何理解并预测输入的内容</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- L1阶段: 启航篇 -->
+            <section id="section-2" class="py-16 scroll-mt-20 bg-gray-50/50">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center mb-8 group">
+                        <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-4 group-hover:bg-secondary/20 transition-colors duration-300">
+                            <i class="fa fa-anchor text-secondary text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark group-hover:text-secondary transition-colors duration-300">L1阶段: 启航篇 | 极速提升AI新时代</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- LLM 大语言模型的基础认知与核心原理 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-graduation-cap text-secondary mr-3"></i>
+                                LLM 大语言模型的基础认知与核心原理
+                            </h3>
+                            <p class="text-gray-600">掌握大语言模型的基本概念、工作原理和应用场景，建立扎实的理论基础。</p>
+                        </div>
+
+                        <!-- Prompt 工程理论与实践 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-2-1')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-secondary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-keyboard-o text-secondary mr-3"></i>
+                                    Prompt 工程理论与实践
+                                </h3>
+                                <i id="icon-section-2-1" class="fa fa-chevron-down text-gray-400 group-hover:text-secondary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-2-1" class="hidden px-6 pb-6">
+                                <ul class="space-y-3 pl-10">
+                                    <li class="text-gray-700 hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>预训练、SFT、RLHF</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Prompt 提示工程特征</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Prompt Engineering基础原理与工程调优技巧</span>
+                                        <ul class="mt-2 ml-4 space-y-2 text-gray-600 pl-4 border-l-2 border-secondary/30">
+                                            <li>提示词(Prompt)与提示工程</li>
+                                            <li>Prompt Engineering构建原则</li>
+                                            <li>Prompt的调优和构成要素</li>
+                                            <li>Prompt调试进阶技巧</li>
+                                            <li>Prompt攻击与防范</li>
+                                        </ul>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Prompt Engineering实战应用</span>
+                                        <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-secondary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-pencil text-secondary mt-1 mr-2"></i>
+                                                <span>应用实践: 小红书文案生成</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-secondary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-users text-secondary mt-1 mr-2"></i>
+                                                <span>应用实践: 基于提示工程的学员管理系统实现</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-secondary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-calculator text-secondary mt-1 mr-2"></i>
+                                                <span>应用实践: 企业活动成本分析估算</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-secondary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-database text-secondary mt-1 mr-2"></i>
+                                                <span>应用实践: 根据多表数据自动编写SQL代码生成</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Prompt Engineering 前瞻总结</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- L2阶段: 攻坚篇 -->
+            <section id="section-3" class="py-16 scroll-mt-20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center mb-8 group">
+                        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent/20 transition-colors duration-300">
+                            <i class="fa fa-shield text-accent text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark group-hover:text-accent transition-colors duration-300">L2阶段: 攻坚篇 | RAG开发实战工坊</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- RAG 高阶篇: RAG认知与项目实践 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-3-1')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-accent transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-cubes text-accent mr-3"></i>
+                                    RAG 高阶篇: RAG认知与项目实践
+                                </h3>
+                                <i id="icon-section-3-1" class="fa fa-chevron-down text-gray-400 group-hover:text-accent transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-3-1" class="hidden px-6 pb-6">
+                                <ul class="space-y-3 pl-10">
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>LangChain</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>什么是LangChain?</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>LangChain概念</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>LangChain应用生命周期全景</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>增强提示词模板和输出解析器</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Langchain的链和LCEL</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-accent/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-comments text-accent mt-1 mr-2"></i>
+                                                <span>应用实践: 多用户聊天机器人实战</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-accent/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-newspaper-o text-accent mt-1 mr-2"></i>
+                                                <span>应用实践: LCEL内置模板提取在线网页新闻网页实战</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>LangChain与RAG</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-accent/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-link text-accent mt-1 mr-2"></i>
+                                                <span>应用实践: 基于LangChain的在线网页的RAG实现</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-accent transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>LangChain的工具调用</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-accent/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-wrench text-accent mt-1 mr-2"></i>
+                                                <span>应用实践: 使用工具查询数据库</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- RAG痛点分析与优化方案实践 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-diagnoses text-accent mr-3"></i>
+                                RAG痛点分析与优化方案实践
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> RAG商业化痛点分析</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> Advanced RAG原理</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> Advanced RAG</li>
+                            </ul>
+                        </div>
+
+                        <!-- RAGFlow应用 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-sitemap text-accent mr-3"></i>
+                                RAGFlow应用
+                            </h3>
+                            <ul class="space-y-3 text-gray-600 pl-5">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">RAGFlow应用价值分析</span>
+                                        <div class="mt-1 ml-4 bg-gray-50 hover:bg-accent/5 p-2 rounded-md inline-block transition-colors duration-200">
+                                            <span>应用实践: 机器人医疗问诊助手</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">FastGPT应用分析</span>
+                                        <div class="mt-1 ml-4 bg-gray-50 hover:bg-accent/5 p-2 rounded-md inline-block transition-colors duration-200">
+                                            <span>应用实践: 实时网页信息搜索+RAG的问答系统搭建及发布</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- RAG应用评估 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-chart-line text-accent mr-3"></i>
+                                RAG应用评估
+                            </h3>
+                            <ul class="space-y-3 text-gray-600 pl-5">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">RAG应用评估</span>
+                                        <ul class="mt-1 ml-4 space-y-1 text-gray-600">
+                                            <li>评估方法</li>
+                                            <li>评估类型和评估指标</li>
+                                            <li>常用的评估工具介绍</li>
+                                            <li>应用实践: 无缝医疗评估注入了解剖指标和优化方向</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-accent mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">RAG应用评估</span>
+                                        <ul class="mt-1 ml-4 space-y-1 text-gray-600">
+                                            <li>如何通过指标判断RAG应用的性能</li>
+                                            <li>诊断RAG应用性能瓶颈</li>
+                                            <li>RAG应用针对性优化策略</li>
+                                            <li>RAG性能指标与客观和行业标准</li>
+                                            <li>为什么知识快大小很重要</li>
+                                            <li>知识快大小评估实践</li>
+                                            <li>评估结论</li>
+                                            <li>应用实践: 2023全球智慧城市AI挑战赛</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- L3阶段: 跃迁篇 -->
+            <section id="section-4" class="py-16 scroll-mt-20 bg-gray-50/50">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center mb-8 group">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 group-hover:bg-primary/20 transition-colors duration-300">
+                            <i class="fa fa-rocket text-primary text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark group-hover:text-primary transition-colors duration-300">L3阶段: 跃迁篇 | Agent智能体架构设计</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- Agent -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-android text-primary mr-3"></i>
+                                Agent
+                            </h3>
+                        </div>
+
+                        <!-- 人工智能的未来: Agent -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-4-1')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-primary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-lightbulb-o text-primary mr-3"></i>
+                                    人工智能的未来: Agent
+                                </h3>
+                                <i id="icon-section-4-1" class="fa fa-chevron-down text-gray-400 group-hover:text-primary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-4-1" class="hidden px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Agent: 生活与革命</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Agent智能: Function Calling</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-code text-primary mt-1 mr-2"></i>
+                                                <span>应用实践1: The First Agent</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-cogs text-primary mt-1 mr-2"></i>
+                                                <span>应用实践2: AI Agent+Tools+Memory</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-database text-primary mt-1 mr-2"></i>
+                                                <span>应用实践1: 动态SQL生成与数据库查询</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-train text-primary mt-1 mr-2"></i>
+                                                <span>应用实践2: 12306买票场景接口对接</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Agent核心认知框架</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-cubes text-primary mt-1 mr-2"></i>
+                                                <span>应用实践: 命题机器人工程实践</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>多Agent实践与数字人应用</span>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>多Agent系统</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-code text-primary mt-1 mr-2"></i>
+                                                <span>应用实践: 根据指令生成代码</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-users text-primary mt-1 mr-2"></i>
+                                                <span>应用实践: 多智能体协同代码生成应用</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-briefcase text-primary mt-1 mr-2"></i>
+                                                <span>应用实践: Job Posting (职位发布)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 hover:text-primary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>Agent 数字人应用</span>
+                                        <div class="mt-3 grid grid-cols-1 gap-3 ml-4">
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-video-camera text-primary mt-1 mr-2"></i>
+                                                <span>数字人应用实践1: 实时交互数字人</span>
+                                            </div>
+                                            <div class="bg-gray-50 hover:bg-primary/5 p-3 rounded-md transition-colors duration-200 flex items-start">
+                                                <i class="fa fa-user-circle-o text-primary mt-1 mr-2"></i>
+                                                <span>数字人应用实践2: 模型面试机器人</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- LangGraph -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-sitemap text-primary mr-3"></i>
+                                LangGraph
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-primary mr-2"></i> 第一部分: 基础篇</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-primary mr-2"></i> 第二部分: 应用篇</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-primary mr-2"></i> 第三部分: 实战篇</li>
+                            </ul>
+                        </div>
+
+                        <!-- Coze -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-cube text-primary mr-3"></i>
+                                Coze
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-primary mr-2"></i> Coze概述</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-primary mr-2"></i> Coze粒子、功能与优势</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-primary mr-2"></i> 应用实践: Coze实战AI旅游助手</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- L4阶段: 精进篇 -->
+            <section id="section-5" class="py-16 scroll-mt-20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center mb-8 group">
+                        <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mr-4 group-hover:bg-secondary/20 transition-colors duration-300">
+                            <i class="fa fa-diamond text-secondary text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark group-hover:text-secondary transition-colors duration-300">L4阶段: 精进篇 | 模型微调与私有化部署</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- 大模型私有化与本地部署 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-server text-secondary mr-3"></i>
+                                大模型私有化与本地部署
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-secondary mr-2"></i> 微调: 打造专属领域专家模型</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-secondary mr-2"></i> 模型微调 Freezing</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-secondary mr-2"></i> 开源模型评估方式</li>
+                            </ul>
+                        </div>
+
+                        <!-- Quantization (量化: 模型压缩与加速推理) -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <button class="w-full px-6 py-4 text-left focus:outline-none flex justify-between items-center group" onclick="toggleSection('section-5-1')">
+                                <h3 class="text-xl font-semibold text-dark group-hover:text-secondary transition-colors duration-200 flex items-center">
+                                    <i class="fa fa-compress text-secondary mr-3"></i>
+                                    Quantization (量化: 模型压缩与加速推理)
+                                </h3>
+                                <i id="icon-section-5-1" class="fa fa-chevron-down text-gray-400 group-hover:text-secondary transition-transform duration-300"></i>
+                            </button>
+                            <div id="section-5-1" class="hidden px-6 pb-6">
+                                <ul class="space-y-2 pl-10 text-gray-700">
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>模型显存占用与量化技术</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>QAT量化方法介绍</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>PTQ量化方法介绍</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>GPTQ量化方法介绍</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>训练后量化方法解析</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>BitsAndBytes库使用场景分析</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>TensorRT-LLM框架适用场景分析</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>大模型量化策略框架对比分析</span>
+                                    </li>
+                                    <li class="hover:text-secondary transition-colors duration-200 cursor-pointer group flex items-center">
+                                        <i class="fa fa-angle-right mr-2 group-hover:translate-x-1 transition-transform duration-200"></i>
+                                        <span>模型量化对比实例</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Application Engineering -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-cogs text-secondary mr-3"></i>
+                                Application Engineering
+                            </h3>
+                            <ul class="space-y-3 text-gray-600 pl-5">
+                                <li class="flex items-start">
+                                    <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+                                    <div>
+                                        <span class="font-medium">多模态大模型架构解读</span>
+                                        <ul class="mt-1 ml-4 space-y-1 text-gray-600">
+                                            <li>重磅结果: 强化学习实现R1-Zero强化学习训练过程中推理能力涌现</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-secondary mr-2"></i> 大模型应用工程</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-secondary mr-2"></i> 大模型AI工程平台(MoPaaS)</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-secondary mr-2"></i> 打造私有化模型 --- 智能时代企业关键的IP</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 专题策划: 特训篇 -->
+            <section id="section-6" class="py-16 scroll-mt-20 bg-gray-50/50">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex items-center mb-8 group">
+                        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mr-4 group-hover:bg-accent/20 transition-colors duration-300">
+                            <i class="fa fa-book text-accent text-xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-dark group-hover:text-accent transition-colors duration-300">专题策划: 特训篇 【录播课】</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- 全新升级: LlamaIndex -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-cubes text-accent mr-3"></i>
+                                全新升级: LlamaIndex
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> LlamaIndex是啥</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> LlamaIndex快速入门</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> LlamaIndex初探</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 核心组件</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> Workflow</li>
+                            </ul>
+                        </div>
+
+                        <!-- 全新升级: DeepSeek场景化开发 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-rocket text-accent mr-3"></i>
+                                全新升级: DeepSeek场景化开发
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5 max-h-60 overflow-y-auto pr-2 scrollbar-hide">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek简介</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek开源大模型</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek在垂体快熟读</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 全场景赋能的实践入口</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek的场景化实践</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 多模态能力</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek与三方公司进行核心功能</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 共建主义实践</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> RAG技术价值与车辆维修</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 知识增强的技术转向</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek+RAGFlow本地部署</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 企业级AI基础建设范式</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek API建设</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 开发者生态赋能引擎</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> DeepSeek行业应用</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 垂直领域场景实践</li>
+                            </ul>
+                        </div>
+
+                        <!-- 全新升级: 大模型上下文协议: MCP -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-exchange text-accent mr-3"></i>
+                                全新升级: 大模型上下文协议: MCP
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 智能体交互新范式: A2A</li>
+                            </ul>
+                        </div>
+
+                        <!-- GraphRAG增强风升级 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 transform hover:-translate-y-1 transition-transform duration-300">
+                            <h3 class="text-xl font-semibold text-dark mb-2 flex items-center">
+                                <i class="fa fa-sitemap text-accent mr-3"></i>
+                                GraphRAG增强风升级
+                            </h3>
+                            <ul class="space-y-2 text-gray-600 pl-5">
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> GraphRAG原理</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 应用场景</li>
+                                <li class="flex items-center"><i class="fa fa-check-circle text-accent mr-2"></i> 项目部署</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 flex items-center">
+                    <i class="fa fa-brain text-primary text-2xl mr-2"></i>
+                    <span class="font-bold text-xl">AI产品经理知识库</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#section-1" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-book text-xl"></i>
+                    </a>
+                    <a href="#section-2" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-graduation-cap text-xl"></i>
+                    </a>
+                    <a href="#section-3" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-cogs text-xl"></i>
+                    </a>
+                    <a href="#section-4" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-rocket text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2023 AI产品经理知识库. 保留所有权利.</p>
+                <p class="mt-2 text-sm">本项目旨在记录作者的学习经历、思考和经验分享</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary/90 hover:bg-primary text-white rounded-full p-3 shadow-lg transition-all duration-300 opacity-0 invisible transform translate-y-10 z-50">
+        <i class="fa fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        // 切换章节显示/隐藏
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(`icon-${sectionId}`);
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+                // 添加淡入动画
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(-10px)';
+                section.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                // 添加淡出动画
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+                section.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                setTimeout(() => {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        section.classList.add('hidden');
+                        icon.classList.remove('rotate-180');
+                    }, 300);
+                }, 10);
+            }
+        }
+
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单切换
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuButton.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+            } else {
+                mobileMenuButton.innerHTML = '<i class="fa fa-times text-xl"></i>';
+            }
+        });
+
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-10');
+                backToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-10');
+                backToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // 关闭移动端菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+                    }
+                }
+            });
+        });
+
+        // 添加动画类
+        document.addEventListener('DOMContentLoaded', () => {
+            // 添加滚动动画
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section > div > div').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
