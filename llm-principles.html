@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大语言模型核心原理 - AI产品经理知识库</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#7C3AED',
+                        accent: '#10B981',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-transform-opacity {
+                transition-property: transform, opacity;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .animate-fade-in-up {
+                animation: fadeInUp 0.6s ease-out forwards;
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    </style>
+</head>
+<body class="bg-light text-dark antialiased min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <i class="fa fa-brain text-primary text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-primary">AI产品经理知识库</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="llm-principles.html" class="text-primary hover:text-primary transition-colors duration-200 font-medium">大语言模型核心原理</a>
+                    <a href="l1-beginner.html" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L1阶段: 启航篇</a>
+                    <a href="l2-intermediate.html" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L2阶段: 攻坚篇</a>
+                    <a href="l3-advanced.html" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L3阶段: 跃迁篇</a>
+                    <a href="l4-expert.html" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">L4阶段: 精进篇</a>
+                    <a href="special-topics.html" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">专题策划</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 shadow-lg animate-fade-in-down">
+            <div class="container mx-auto px-4 py-2 space-y-1">
+                <a href="llm-principles.html" class="block py-2 px-3 text-primary hover:bg-primary/10 rounded-md transition-colors duration-200 font-medium">大语言模型核心原理</a>
+                <a href="l1-beginner.html" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L1阶段: 启航篇</a>
+                <a href="l2-intermediate.html" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L2阶段: 攻坚篇</a>
+                <a href="l3-advanced.html" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L3阶段: 跃迁篇</a>
+                <a href="l4-expert.html" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">L4阶段: 精进篇</a>
+                <a href="special-topics.html" class="block py-2 px-3 text-gray-700 hover:bg-primary/10 hover:text-primary rounded-md transition-colors duration-200 font-medium">专题策划</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow pt-24 pb-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 页面标题 -->
+            <section class="py-8 md:py-12 text-center">
+                <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-dark mb-4 leading-tight text-shadow animate-fade-in-up">
+                    大语言模型<span class="text-primary">核心原理</span>
+                </h1>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-6 animate-fade-in-up animation-delay-200">
+                    深入理解大语言模型的基础理论、架构和工作机制
+                </p>
+            </section>
+
+            <!-- 内容区域 -->
+            <section class="py-8 scroll-mt-20">
+                <div class="max-w-4xl mx-auto">
+                    <div class="space-y-8">
+                        <!-- 初识大模型 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <div class="px-6 py-4">
+                                <h3 class="text-xl font-semibold text-dark flex items-center">
+                                    <i class="fa fa-rocket text-primary mr-3"></i>
+                                    初识大模型
+                                </h3>
+                            </div>
+                            <div class="px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <div>
+                                            <span class="font-medium">人工智能演进与大模型兴起: 从AI1.0到AI2.0的变迁</span>
+                                            <ul class="mt-2 ml-4 space-y-2 text-gray-600 pl-4 border-l-2 border-primary/30">
+                                                <li>定义与核心概念</li>
+                                                <li>AI1.0: 感知智能时代</li>
+                                                <li>AI2.0: 认知智能时代</li>
+                                                <li>人工智能的核心能力与应用场景</li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>大模型度量认知解析</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>大模型与通用人工智能</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 主流大模型与应用产品 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <div class="px-6 py-4">
+                                <h3 class="text-xl font-semibold text-dark flex items-center">
+                                    <i class="fa fa-th-large text-primary mr-3"></i>
+                                    主流大模型与应用产品
+                                </h3>
+                            </div>
+                            <div class="px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <div>
+                                            <span class="font-medium">主流大模型</span>
+                                            <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 ml-4">
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">DeepSeek</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">Qwen2</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">GLM系列</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">LLama系列</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">GPT系列</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">Claude</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">Gemini</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>开源大模型 VS 闭源大模型</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <div>
+                                            <span class="font-medium">大模型应用产品</span>
+                                            <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2 ml-4">
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">文心一言</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">智谱清言</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">ChatGPT</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 大语言模型基础认知 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <div class="px-6 py-4">
+                                <h3 class="text-xl font-semibold text-dark flex items-center">
+                                    <i class="fa fa-lightbulb-o text-primary mr-3"></i>
+                                    大语言模型基础认知
+                                </h3>
+                            </div>
+                            <div class="px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>重点行业预测</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>大模型赋能行业通用场景应用分析</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <div>
+                                            <span class="font-medium">大模型行业分析</span>
+                                            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2 ml-4">
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">大模型 &gt; 金融</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">大模型 &gt; 政务</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">大模型 &gt; 医疗</div>
+                                                <div class="bg-gray-50 p-2 rounded-md text-center">大模型 &gt; 法律、游戏、教育、电商等</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>发展趋势: 更快、更强、更省、更安全</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>大模型的发展趋势与挑战</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 大语言模型核心原理 -->
+                        <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden border border-gray-100">
+                            <div class="px-6 py-4">
+                                <h3 class="text-xl font-semibold text-dark flex items-center">
+                                    <i class="fa fa-code text-primary mr-3"></i>
+                                    大语言模型核心原理
+                                </h3>
+                            </div>
+                            <div class="px-6 pb-6">
+                                <ul class="space-y-4 pl-10">
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>大语言模型的机器学习学习有哪些老师</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>Transformer架构详解</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>注意力机制原理</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>预训练与微调技术</span>
+                                    </li>
+                                    <li class="text-gray-700 flex items-start">
+                                        <i class="fa fa-angle-right text-primary mr-2 mt-1"></i>
+                                        <span>大模型训练与优化方法</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 flex items-center">
+                    <i class="fa fa-brain text-primary text-2xl mr-2"></i>
+                    <span class="font-bold text-xl">AI产品经理知识库</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="llm-principles.html" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-book text-xl"></i>
+                    </a>
+                    <a href="l1-beginner.html" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-graduation-cap text-xl"></i>
+                    </a>
+                    <a href="l2-intermediate.html" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-cogs text-xl"></i>
+                    </a>
+                    <a href="l3-advanced.html" class="text-gray-300 hover:text-primary transition-colors duration-200">
+                        <i class="fa fa-rocket text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>© 2023 AI产品经理知识库. 保留所有权利.</p>
+                <p class="mt-2 text-sm">本项目旨在记录作者的学习经历、思考和经验分享</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary/90 hover:bg-primary text-white rounded-full p-3 shadow-lg transition-all duration-300 opacity-0 invisible transform translate-y-10 z-50">
+        <i class="fa fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.add('py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // 移动端菜单切换
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuButton.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+            } else {
+                mobileMenuButton.innerHTML = '<i class="fa fa-times text-xl"></i>';
+            }
+        });
+
+        // 返回顶部按钮
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-10');
+                backToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-10');
+                backToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    // 关闭移动端菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+                    }
+                }
+            });
+        });
+
+        // 添加动画类
+        document.addEventListener('DOMContentLoaded', () => {
+            // 添加滚动动画
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section > div > div').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
